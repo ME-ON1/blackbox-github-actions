@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function parseInputs {
   # Required environment variables
   if [[ -z ${BLACKBOX_PUBKEY}  ]]; then
@@ -28,8 +30,9 @@ function parseInputs {
 }
 
 function setupKeys {
-  echo -e "${BLACKBOX_PUBKEY}" | gpg --import --no-tty --batch --yes
-  echo -e "${BLACKBOX_PRIVKEY}" | gpg --import --no-tty --batch --yes
+  gpg --version
+  echo -e "${BLACKBOX_PUBKEY}" | base64 -d | gpg --import --no-tty --batch --yes
+  echo -e "${BLACKBOX_PRIVKEY}" | base64 -d | gpg --import --no-tty --batch --yes
 }
 
 function main {

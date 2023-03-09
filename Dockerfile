@@ -1,11 +1,11 @@
-FROM ubuntu:18.04 as builder
+FROM ubuntu:22.04 as builder
 
 RUN apt-get update && apt-get install -y \
   git
   
 RUN git clone https://github.com/StackExchange/blackbox
  
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 COPY --from=builder /blackbox/bin /usr/local/bin
     

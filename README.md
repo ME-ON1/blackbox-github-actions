@@ -17,7 +17,7 @@ This workflow requires two secrets to be configured for the repository:
 
 The keys should be exported into ASCII armor format and then use the following command to prepare them for pasting into separate GitHub Secrets.
 
-`cat -e <key file> | sed 's/\$/\\n/g'`
+`cat <key file> | base64`
 
 Note that the value provided to the `bb_actions_subcommand` input is the desired blackbox command with the `blackbox_` prefix stripped off.
 
@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@master
 
       - name: postdeploy
-        uses: jrmcdonald/blackbox-github-actions@v0.2.0
+        uses: nean/blackbox-github-actions@master
         with:
           bb_actions_subcommand: 'postdeploy'
         env:
@@ -44,7 +44,7 @@ jobs:
           # do something with the secrets here
 
       - name: shred
-        uses: jrmcdonald/blackbox-github-actions@v0.2.0
+        uses: nean/blackbox-github-actions@master
         with:
           bb_actions_subcommand: 'shred_all_files'
         env:
